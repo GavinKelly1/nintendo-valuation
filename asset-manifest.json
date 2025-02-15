@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/nintendo-valuation/static/css/main.fdd1bbbf.css",
+    "main.js": "/nintendo-valuation/static/js/main.376f3f8d.js",
+    "index.html": "/nintendo-valuation/index.html",
+    "main.fdd1bbbf.css.map": "/nintendo-valuation/static/css/main.fdd1bbbf.css.map",
+    "main.376f3f8d.js.map": "/nintendo-valuation/static/js/main.376f3f8d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fdd1bbbf.css",
+    "static/js/main.376f3f8d.js"
+  ]
+}
