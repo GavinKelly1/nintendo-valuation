@@ -2,24 +2,25 @@ import React, { useState } from "react";
 import "./styles.css"; // Import CSS
 
 export default function NintendoValuation() {
-  const formatter = new Intl.NumberFormat("en-US", { notation: "standard" });
+  // Format all numbers as JPY currency
+  const formatter = new Intl.NumberFormat("ja-JP", { style: "currency", currency: "JPY" });
 
-  // State Variables for Sliders
+  // State Variables for Sliders (Now in JPY)
   const [consoleSales, setConsoleSales] = useState(1); // Projected Console Sales (Units)
-  const [revenuePerConsole, setRevenuePerConsole] = useState(1); // Revenue Per Console ($)
+  const [revenuePerConsole, setRevenuePerConsole] = useState(59850); // Revenue Per Console (JPY)
   const [gameSales, setGameSales] = useState(1); // Projected Game Sales (Units)
-  const [revenuePerGame, setRevenuePerGame] = useState(1); // Revenue Per Game ($)
+  const [revenuePerGame, setRevenuePerGame] = useState(1500); // Revenue Per Game (JPY)
   const [subscribers, setSubscribers] = useState(1); // Switch Online Subscribers (Millions)
-  const [revenuePerSubscriber, setRevenuePerSubscriber] = useState(1); // Revenue Per Subscriber ($)
-  const [expenses, setExpenses] = useState(100); // Operating Expenses ($M)
+  const [revenuePerSubscriber, setRevenuePerSubscriber] = useState(4500); // Revenue Per Subscriber (JPY)
+  const [expenses, setExpenses] = useState(15000); // Operating Expenses (Million JPY)
   const [evMultiple, setEvMultiple] = useState(1); // EV/EBITDA Multiple
   const [outstandingShares, setOutstandingShares] = useState(1); // Outstanding Shares (Millions)
 
-  // **New Revenue Calculation**
+  // **Revenue Calculation (All in JPY)**
   const revenue =
-    consoleSales * revenuePerConsole + // Console Revenue
-    gameSales * revenuePerGame + // Game Sales Revenue
-    subscribers * revenuePerSubscriber * 1_000_000; // Subscription Revenue
+    consoleSales * revenuePerConsole + // Console Revenue (JPY)
+    gameSales * revenuePerGame + // Game Sales Revenue (JPY)
+    subscribers * revenuePerSubscriber * 1_000_000; // Subscription Revenue (JPY)
 
   // **EBITDA Calculation**
   const ebitda = revenue - expenses * 1_000_000;
@@ -35,17 +36,17 @@ export default function NintendoValuation() {
 
   return (
     <div className="container">
-      <h1 className="title">Nintendo Valuation Model</h1>
+      <h1 className="title">Nintendo Valuation Model (JPY - 7974.T)</h1>
 
       {/* Sliders Section */}
       {[
         { label: "Projected Console Sales (Units)", value: consoleSales, setter: setConsoleSales, min: 1, max: 30_000_000 },
-        { label: "Average Revenue Per Console ($)", value: revenuePerConsole, setter: setRevenuePerConsole, min: 100, max: 1000, prefix: "$" },
+        { label: "Average Revenue Per Console (JPY)", value: revenuePerConsole, setter: setRevenuePerConsole, min: 10000, max: 150000, prefix: "¥" },
         { label: "Projected Game Sales (Units)", value: gameSales, setter: setGameSales, min: 1, max: 500_000_000 },
-        { label: "Average Revenue Per Game ($)", value: revenuePerGame, setter: setRevenuePerGame, min: 10, max: 100, prefix: "$" },
+        { label: "Average Revenue Per Game (JPY)", value: revenuePerGame, setter: setRevenuePerGame, min: 1000, max: 3000, prefix: "¥" },
         { label: "Nintendo Switch Online Subscribers (Millions)", value: subscribers, setter: setSubscribers, min: 1, max: 300 },
-        { label: "Average Revenue Per Subscriber ($)", value: revenuePerSubscriber, setter: setRevenuePerSubscriber, min: 1, max: 100, prefix: "$" },
-        { label: "Operating Expenses ($M)", value: expenses, setter: setExpenses, min: 100, max: 10_000, prefix: "$" },
+        { label: "Average Revenue Per Subscriber (JPY)", value: revenuePerSubscriber, setter: setRevenuePerSubscriber, min: 100, max: 15000, prefix: "¥" },
+        { label: "Operating Expenses (Million JPY)", value: expenses, setter: setExpenses, min: 15000, max: 1_500_000, prefix: "¥" },
         { label: "EV/EBITDA Multiple", value: evMultiple, setter: setEvMultiple, min: 1, max: 200 },
         { label: "Outstanding Shares (Millions)", value: outstandingShares, setter: setOutstandingShares, min: 1, max: 1_500 },
       ].map(({ label, value, setter, min, max, prefix = "", suffix = "" }, index) => (
@@ -66,19 +67,22 @@ export default function NintendoValuation() {
 
       {/* Stock Price Box */}
       <div className="stock-price">
-        Stock Price: ${stockPrice > 0 ? stockPrice.toFixed(2) : "0.00"}
+        Stock Price: {formatter.format(stockPrice > 0 ? stockPrice.toFixed(0) : 0)}
       </div>
 
       {/* Results Section */}
       <div className="results">
-        <p>Revenue:</p> <p className="right">${formatter.format(revenue)}</p>
-        <p>EBITDA:</p> <p className="right">${formatter.format(ebitda)}</p>
+        <p>Revenue:</p> <p className="right">{formatter.format(revenue)}</p>
+        <p>EBITDA:</p> <p className="right">{formatter.format(ebitda)}</p>
         <p>EBITDA Margin:</p> <p className="right">{ebitdaMargin}%</p>
-        <p>Market Cap:</p> <p className="right">${formatter.format(marketCap)}</p>
+        <p>Market Cap:</p> <p className="right">{formatter.format(marketCap)}</p>
       </div>
     </div>
   );
 }
+
+
+
 
 
 
