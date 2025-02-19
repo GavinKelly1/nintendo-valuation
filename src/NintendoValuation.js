@@ -39,9 +39,9 @@ export default function NintendoValuation() {
 
       {/* Sliders Section */}
       {[
-        { label: "Projected Console Sales (Units)", value: consoleSales, setter: setConsoleSales, min: 1, max: 100_000_000 },
+        { label: "Projected Console Sales (Units)", value: consoleSales, setter: setConsoleSales, min: 1, max: 30_000_000 },
         { label: "Average Revenue Per Console ($)", value: revenuePerConsole, setter: setRevenuePerConsole, min: 100, max: 1000, prefix: "$" },
-        { label: "Projected Game Sales (Units)", value: gameSales, setter: setGameSales, min: 1, max: 1_000_000_000 },
+        { label: "Projected Game Sales (Units)", value: gameSales, setter: setGameSales, min: 1, max: 500_000_000 },
         { label: "Average Revenue Per Game ($)", value: revenuePerGame, setter: setRevenuePerGame, min: 10, max: 100, prefix: "$" },
         { label: "Nintendo Switch Online Subscribers (Millions)", value: subscribers, setter: setSubscribers, min: 1, max: 300 },
         { label: "Average Revenue Per Subscriber ($)", value: revenuePerSubscriber, setter: setRevenuePerSubscriber, min: 1, max: 100, prefix: "$" },
@@ -79,6 +79,7 @@ export default function NintendoValuation() {
     </div>
   );
 }
+
 
 
 
