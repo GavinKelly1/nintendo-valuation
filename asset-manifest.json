@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/nintendo-valuation/static/css/main.fdd1bbbf.css",
-    "main.js": "/nintendo-valuation/static/js/main.51951fac.js",
+    "main.js": "/nintendo-valuation/static/js/main.e8e84cd7.js",
     "index.html": "/nintendo-valuation/index.html",
     "main.fdd1bbbf.css.map": "/nintendo-valuation/static/css/main.fdd1bbbf.css.map",
-    "main.51951fac.js.map": "/nintendo-valuation/static/js/main.51951fac.js.map"
+    "main.e8e84cd7.js.map": "/nintendo-valuation/static/js/main.e8e84cd7.js.map"
   },
   "entrypoints": [
     "static/css/main.fdd1bbbf.css",
-    "static/js/main.51951fac.js"
+    "static/js/main.e8e84cd7.js"
   ]
 }
