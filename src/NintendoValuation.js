@@ -1,37 +1,33 @@
-import React, { useState } from "react";
-import "./styles.css"; // Import CSS
-
 export default function NintendoValuation() {
   const formatter = new Intl.NumberFormat("en-US", { notation: "standard" });
 
-  // State Variables for Sliders
-  const [consoleSales, setConsoleSales] = useState(1); // Projected Console Sales (Units)
-  const [revenuePerConsole, setRevenuePerConsole] = useState(1); // Revenue Per Console (¥)
-  const [gameSales, setGameSales] = useState(1); // Projected Game Sales (Units)
-  const [revenuePerGame, setRevenuePerGame] = useState(1); // Revenue Per Game (¥)
-  const [subscribers, setSubscribers] = useState(1); // Switch Online Subscribers (Millions)
-  const [revenuePerSubscriber, setRevenuePerSubscriber] = useState(1); // Revenue Per Subscriber (¥)
-  const [expenses, setExpenses] = useState(1); // Operating Expenses (Billions ¥)
-  const [evMultiple, setEvMultiple] = useState(1); // EV/EBITDA Multiple
-  const [outstandingShares, setOutstandingShares] = useState(1); // Outstanding Shares (Millions)
+  const [consoleSales, setConsoleSales] = useState(1);
+  const [revenuePerConsole, setRevenuePerConsole] = useState(1);
+  const [gameSales, setGameSales] = useState(1);
+  const [revenuePerGame, setRevenuePerGame] = useState(1);
+  const [subscribers, setSubscribers] = useState(1);
+  const [revenuePerSubscriber, setRevenuePerSubscriber] = useState(1);
+  const [expenses, setExpenses] = useState(1);
+  const [evMultiple, setEvMultiple] = useState(1);
+  const [outstandingShares, setOutstandingShares] = useState(1);
 
-  // **New Revenue Calculation**
+  // **Revenue Calculation**
   const revenue =
-    consoleSales * revenuePerConsole + // Console Revenue
-    gameSales * revenuePerGame + // Game Sales Revenue
-    subscribers * revenuePerSubscriber * 1_000_000; // Subscription Revenue
+    consoleSales * revenuePerConsole + 
+    gameSales * revenuePerGame + 
+    subscribers * revenuePerSubscriber * 1_000_000;
 
-  // **EBITDA Calculation (FIX APPLIED: Expenses in Billions ¥)**
-  const ebitda = revenue - (expenses * 1_000_000_000); 
+  // **Ensure expenses are properly scaled**
+  const ebitda = revenue - (expenses * 1_000_000_000); // If expenses are in billions
 
-  // **EBITDA Margin**
-  const ebitdaMargin = ((ebitda / revenue) * 100).toFixed(2);
+  // **Prevent EBITDA from exceeding revenue**
+  const ebitdaMargin = revenue > 0 ? Math.min(((ebitda / revenue) * 100), 100).toFixed(2) : 0;
 
-  // **Market Cap Calculation**
+  // **Calculate Market Cap without Capping EV/EBITDA**
   const marketCap = ebitda * evMultiple;
 
   // **Stock Price Calculation**
-  const stockPrice = marketCap / (outstandingShares * 1_000_000);
+  const stockPrice = outstandingShares > 0 ? Math.max(0, marketCap / (outstandingShares * 1_000_000)) : 0;
 
   return (
     <div className="container">
@@ -66,7 +62,7 @@ export default function NintendoValuation() {
 
       {/* Stock Price Box */}
       <div className="stock-price">
-        Stock Price: ¥{stockPrice > 0 ? stockPrice.toFixed(2) : "0.00"}
+        Stock Price: ¥{stockPrice.toFixed(2)}
       </div>
 
       {/* Results Section */}
@@ -79,6 +75,7 @@ export default function NintendoValuation() {
     </div>
   );
 }
+
 
 
 
